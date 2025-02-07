@@ -53,6 +53,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     try {
       await auth.signOut();
       setUser(null);
+      console.log("sescion cerrada")
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
