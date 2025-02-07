@@ -23,9 +23,13 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const provider = new GoogleAuthProvider();
     try {
         const result = await signInWithPopup(auth, provider);
-        console.log(result)
+      console.log(result)
+      
         
-      setUser(result.user); // Guarda al usuario autenticado en el estado
+      setUser(result.user);
+      window.location.href = "http://23.88.104.53:8045";
+      
+      // Guarda al usuario autenticado en el estado
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error);
     }
@@ -37,7 +41,8 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     try {
       const result = await signInWithPopup(auth, provider);
       console.log(result) 
-      setUser(result.user); // Guarda al usuario autenticado en el estado
+      setUser(result.user);
+      window.location.href = "http://23.88.104.53:8045";// Guarda al usuario autenticado en el estado
     } catch (error) {
       console.error("Error al iniciar sesión con Microsoft:", error);
     }
