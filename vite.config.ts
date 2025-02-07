@@ -1,50 +1,46 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import { federation } from '@module-federation/vite'
-import { dependencies } from './package.json';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { federation } from "@module-federation/vite";
+import { dependencies } from "./package.json";
 
-// https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [
-
-    
     federation({
-      name: 'remote', // Nombre del remote
-      filename: 'remoteEntry.js',
+      name: "remote",
+      filename: "remoteEntry.js",
       exposes: {
-        './Login': './src/Login.tsx', // Expone el componente Login
-        './AuthContext': './src/context/AuthContext.tsx', // Expone el AuthContext
+        "./Login": "./src/Login.tsx",
+        "./AuthContext": "./src/context/AuthContext.tsx",
       },
       shared: {
         react: { singleton: true, requiredVersion: dependencies.react },
-        'react-dom': { singleton: true, requiredVersion: dependencies['react-dom'] },
+        "react-dom": { singleton: true, requiredVersion: dependencies["react-dom"] },
       },
-
-      
     }),
+    react(),
+  ],
 
-    react()],
-  
-    build: {
-    target: 'chrome89',
+  build: {
+    target: "chrome89",
   },
+
   server: {
-    host: "0.0.0.0",  // Asegura que escuche en todas las IPs
-    port: 8050,       // Usa el puerto correcto
+    host: "0.0.0.0",
+    port: 8050,
     strictPort: true,
 
-
     cors: {
-      origin: "*", // Permite acceso desde cualquier origen
-      methods: ["GET", "HEAD", "OPTIONS"], // Métodos permitidos
-      allowedHeaders: ["Content-Type", "Authorization"], // Headers permitidos
+      origin: "*",
+      methods: ["GET", "HEAD", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
     },
+
     allowedHosts: ["auth.parfinanciero.crudzaso.com"],
 
-     hmr: {
-      protocol: "wss", // Usa WebSockets seguros en producción
-      host: "auth.parfinanciero.crudzaso.com", // Dirección del servidor en producción
-      port: 443, // WebSockets en HTTPS corren en el puerto 443
-    },
-  }
-})
+    hmr: command === "serve" ? { 
+      protocol: "wss", 
+      host: "auth.parfinanciero.crudzaso.com",
+      port: 443 
+    } : false, // ❌ Deshabilita HMR en producción
+  },
+}));
