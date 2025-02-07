@@ -39,6 +39,12 @@ export default defineConfig({
       methods: ["GET", "HEAD", "OPTIONS"], // Métodos permitidos
       allowedHeaders: ["Content-Type", "Authorization"], // Headers permitidos
     },
-    allowedHosts: ["auth.parfinanciero.crudzaso.com"]
+    allowedHosts: ["auth.parfinanciero.crudzaso.com"],
+
+     hmr: {
+      protocol: "wss", // Usa WebSockets seguros en producción
+      host: "auth.parfinanciero.crudzaso.com", // Dirección del servidor en producción
+      port: 443, // WebSockets en HTTPS corren en el puerto 443
+    },
   }
 })
