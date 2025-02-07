@@ -14,7 +14,7 @@ interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 // Crear el proveedor del contexto
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<any>(null);
   const auth = getAuth(app); // Instancia de Firebase Auth
 
@@ -68,3 +68,4 @@ export const useAuth = (): AuthContextProps => {
   }
   return context;
 };
+export default AuthProvider;
