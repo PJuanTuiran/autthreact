@@ -32,6 +32,13 @@ export default defineConfig({
     host: "0.0.0.0",  // Asegura que escuche en todas las IPs
     port: 8050,       // Usa el puerto correcto
     strictPort: true,
+
+
+    cors: {
+      origin: "*", // Permite acceso desde cualquier origen
+      methods: ["GET", "HEAD", "OPTIONS"], // Métodos permitidos
+      allowedHeaders: ["Content-Type", "Authorization"], // Headers permitidos
+    },
     allowedHosts: ["auth.parfinanciero.crudzaso.com"]
   }
 })
